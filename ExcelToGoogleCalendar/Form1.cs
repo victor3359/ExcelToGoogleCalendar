@@ -51,18 +51,30 @@ namespace ExcelToGoogleCalendar
             InitializeComponent();
 
             ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
-            using (var stream =
-               new FileStream("credentials.json", FileMode.Open, FileAccess.Read))
+            try
             {
-                string credPath = "token.json";
-                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-                    GoogleClientSecrets.FromStream(stream).Secrets,
-                    Scopes,
-                    "user",
-                    CancellationToken.None,
-                    new FileDataStore(credPath, true)).Result;
+                using (var stream =
+                   new FileStream("credentials.json", FileMode.Open, FileAccess.Read))
+                {
+                    string credPath = "token.json";
+                    credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+                        GoogleClientSecrets.FromStream(stream).Secrets,
+                        Scopes,
+                        "user",
+                        CancellationToken.None,
+                        new FileDataStore(credPath, true)).Result;
+                }
+                SyncToGoogle.Enabled = false;
             }
-            SyncToGoogle.Enabled = false;
+            catch (Exception)
+            {
+                using (StreamWriter logWritter = File.AppendText(logPath))
+                {
+                    Log($"缺少 Google 憑證", logWritter);
+                }
+                MessageBox.Show($"缺少 Google 憑證", "憑證錯誤", MessageBoxButtons.OK);
+                Environment.Exit(0);
+            }
         }
 
         private void LoadFile_Click(object sender, EventArgs e)
@@ -131,7 +143,7 @@ namespace ExcelToGoogleCalendar
                 }
                 catch (SecurityException ex)
                 {
-                    MessageBox.Show($"你媽雞雞到處出錯 靠北");
+                    MessageBox.Show($"你媽雞雞到處出錯 靠北", "幹你媽雞雞", MessageBoxButtons.OK);
                     using (StreamWriter logWritter = File.AppendText(logPath))
                     {
                         Log($"你媽雞雞到處出錯\n靠北\n{ex.Message}", logWritter);
