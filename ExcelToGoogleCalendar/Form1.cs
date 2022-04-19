@@ -220,12 +220,12 @@ namespace ExcelToGoogleCalendar
 
         private void ModifyDoctor_Click(object sender, EventArgs e)
         {
-            Process config = new Process();
-            config.StartInfo.FileName = "notepad.exe";
-            config.StartInfo.Arguments = "doctorlist.json";
-            config.EnableRaisingEvents = true;
-            config.Exited += new EventHandler(Config_Is_Done);
-            config.Start();
+            Process p_config = new Process();
+            p_config.StartInfo.FileName = "notepad.exe";
+            p_config.StartInfo.Arguments = "doctorlist.json";
+            p_config.EnableRaisingEvents = true;
+            p_config.Exited += new EventHandler(Config_Is_Done);
+            p_config.Start();
         }
 
         private void Config_Is_Done(object sender, EventArgs e)
