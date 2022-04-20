@@ -43,7 +43,7 @@ namespace ExcelToGoogleCalendar
         };
         private List<Doctor> doctors = new List<Doctor>();
 
-        static string logPath = $"執行紀錄-{DateTime.Now.Year}{DateTime.Now.Month}{DateTime.Now.Day}{DateTime.Now.Hour}{DateTime.Now.Minute}{DateTime.Now.Second}.log";
+        static string logPath = $"{DateTime.Now.Year}-{DateTime.Now.Month}-{DateTime.Now.Day} #執行紀錄{DateTime.Now.Hour}{DateTime.Now.Minute}{DateTime.Now.Second}.log";
 
         UserCredential credential;
         public ShinAnBan()
