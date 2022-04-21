@@ -28,18 +28,7 @@ namespace ExcelToGoogleCalendar
         private List<string> DoctorList = new List<string>();
         static List<string> MonthList = new List<string>()
         {
-            "01",
-            "02",
-            "03",
-            "04",
-            "05",
-            "06",
-            "07",
-            "08",
-            "09",
-            "10",
-            "11",
-            "12",
+            "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12",
         };
         private List<Doctor> doctors = new List<Doctor>();
 
@@ -132,8 +121,7 @@ namespace ExcelToGoogleCalendar
                                 DoctorList.Add(ws.Cells[row, 2].Value.ToString());
                             }
                         }
-                        LoadMessage.ForeColor = Color.Green;
-                        LoadMessage.Text = "讀取那是相當成功";
+                        ModifyLoadMessage("讀取那是相當成功", Color.Green);
                         using (StreamWriter logWritter = File.AppendText(logPath))
                         {
                             Log($"讀取 {filePath} 檔案 OK", logWritter);
@@ -152,8 +140,7 @@ namespace ExcelToGoogleCalendar
             }
             else
             {
-                LoadMessage.ForeColor = Color.Red;
-                LoadMessage.Text = "你是取消選擇的小調皮";
+                ModifyLoadMessage("你是取消選擇的小調皮", Color.Red);
                 using (StreamWriter logWritter = File.AppendText(logPath))
                 {
                     Log($"大雞雞亂取消選擇？", logWritter);
@@ -176,6 +163,22 @@ namespace ExcelToGoogleCalendar
             {
                 Log($"治療師名單更新 OK", logWritter);
             }
+            var crossThreadParameters = new ThreadStart(delegate { ModifyLoadMessage("治療師名單更新 OK", Color.Green); });
+            var crossThread = new Thread(crossThreadParameters);
+            crossThread.Start();
+        }
+        private void ModifyLoadMessage(string msg, Color color)
+        {
+            if (LoadMessage.InvokeRequired)
+            {
+                Action safeWrite = delegate { ModifyLoadMessage($"{msg}", color); };
+                LoadMessage.Invoke(safeWrite);
+            }
+            else
+            {
+                LoadMessage.Text = msg;
+                LoadMessage.ForeColor = color;
+            }
         }
         private void SyncToGoogle_Click(object sender, EventArgs e)
         {
@@ -185,16 +188,14 @@ namespace ExcelToGoogleCalendar
                 ApplicationName = ApplicationName,
             });
 
-            LoadMessage.Text = $"同步至 Google 行事曆";
-            LoadMessage.ForeColor = Color.Green;
+            ModifyLoadMessage($"同步至 Google 行事曆", Color.Green);
             int index = 0;
             foreach (var singleEvent in DB)
             {
                 var doctor = doctors.Find(d => d.name == DoctorList[index]);
                 if(doctor == null)
                 {
-                    LoadMessage.ForeColor = Color.Red;
-                    LoadMessage.Text = $"找不到 {DoctorList[index]} 老師的行事曆";
+                    ModifyLoadMessage($"找不到 {DoctorList[index]} 老師的行事曆", Color.Red);
                     using (StreamWriter logWritter = File.AppendText(logPath))
                     {
                         Log($"Google 同步錯誤：\n找不到 {DoctorList[index]} 老師的行事曆", logWritter);
@@ -216,8 +217,7 @@ namespace ExcelToGoogleCalendar
                         }
                         catch (Exception err)
                         {
-                            LoadMessage.ForeColor = Color.Red;
-                            LoadMessage.Text = $"Google 同步錯誤";
+                            ModifyLoadMessage($"Google 同步錯誤", Color.Red);
                             using (StreamWriter logWritter = File.AppendText(logPath))
                             {
                                 Log($"Google 同步錯誤：\n{err.Message}", logWritter);

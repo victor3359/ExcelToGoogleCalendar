@@ -56,7 +56,7 @@ namespace ExcelToGoogleCalendar
             // 
             this.LoadMessage.BackColor = System.Drawing.SystemColors.ControlLight;
             this.LoadMessage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.LoadMessage.Font = new System.Drawing.Font("Microsoft JhengHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.LoadMessage.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.LoadMessage.Location = new System.Drawing.Point(12, 421);
             this.LoadMessage.Name = "LoadMessage";
             this.LoadMessage.Size = new System.Drawing.Size(318, 24);
