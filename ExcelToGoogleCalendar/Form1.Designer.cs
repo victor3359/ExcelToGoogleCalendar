@@ -36,7 +36,9 @@ namespace ExcelToGoogleCalendar
             this.Image_Cute = new System.Windows.Forms.PictureBox();
             this.LoadExcelDialog = new System.Windows.Forms.OpenFileDialog();
             this.ModifyDoctor = new System.Windows.Forms.Button();
+            this.Image_ShinAnBan = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.Image_Cute)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Image_ShinAnBan)).BeginInit();
             this.SuspendLayout();
             // 
             // LoadFile
@@ -100,12 +102,25 @@ namespace ExcelToGoogleCalendar
             this.ModifyDoctor.UseVisualStyleBackColor = true;
             this.ModifyDoctor.Click += new System.EventHandler(this.ModifyDoctor_Click);
             // 
+            // Image_ShinAnBan
+            // 
+            this.Image_ShinAnBan.Image = ((System.Drawing.Image)(resources.GetObject("Image_ShinAnBan.Image")));
+            this.Image_ShinAnBan.InitialImage = ((System.Drawing.Image)(resources.GetObject("Image_ShinAnBan.InitialImage")));
+            this.Image_ShinAnBan.Location = new System.Drawing.Point(212, 121);
+            this.Image_ShinAnBan.Name = "Image_ShinAnBan";
+            this.Image_ShinAnBan.Size = new System.Drawing.Size(118, 146);
+            this.Image_ShinAnBan.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Image_ShinAnBan.TabIndex = 8;
+            this.Image_ShinAnBan.TabStop = false;
+            this.Image_ShinAnBan.WaitOnLoad = true;
+            // 
             // ShinAnBan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(342, 452);
+            this.Controls.Add(this.Image_ShinAnBan);
             this.Controls.Add(this.ModifyDoctor);
             this.Controls.Add(this.Image_Cute);
             this.Controls.Add(this.SyncToGoogle);
@@ -117,6 +132,7 @@ namespace ExcelToGoogleCalendar
             this.Name = "ShinAnBan";
             this.Text = "溫馨安邦驚弓之鳥";
             ((System.ComponentModel.ISupportInitialize)(this.Image_Cute)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Image_ShinAnBan)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -129,6 +145,7 @@ namespace ExcelToGoogleCalendar
         private System.Windows.Forms.PictureBox Image_Cute;
         private System.Windows.Forms.OpenFileDialog LoadExcelDialog;
         private System.Windows.Forms.Button ModifyDoctor;
+        private System.Windows.Forms.PictureBox Image_ShinAnBan;
     }
 }
 
