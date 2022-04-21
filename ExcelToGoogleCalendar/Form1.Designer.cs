@@ -59,7 +59,7 @@ namespace ExcelToGoogleCalendar
             this.LoadMessage.Name = "LoadMessage";
             this.LoadMessage.Size = new System.Drawing.Size(318, 24);
             this.LoadMessage.TabIndex = 1;
-            this.LoadMessage.Text = "新安邦溫馨肛門工具";
+            this.LoadMessage.Text = "騷鳥凱翔蹦蹦蹦還可以尿尿";
             // 
             // SyncToGoogle
             // 
@@ -78,7 +78,7 @@ namespace ExcelToGoogleCalendar
             this.Image_Cute.InitialImage = ((System.Drawing.Image)(resources.GetObject("Image_Cute.InitialImage")));
             this.Image_Cute.Location = new System.Drawing.Point(12, 121);
             this.Image_Cute.Name = "Image_Cute";
-            this.Image_Cute.Size = new System.Drawing.Size(212, 297);
+            this.Image_Cute.Size = new System.Drawing.Size(221, 297);
             this.Image_Cute.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.Image_Cute.TabIndex = 6;
             this.Image_Cute.TabStop = false;
@@ -115,7 +115,7 @@ namespace ExcelToGoogleCalendar
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "ShinAnBan";
-            this.Text = "馨安邦的EXCEL奶奶工具";
+            this.Text = "溫馨安邦驚弓之鳥";
             ((System.ComponentModel.ISupportInitialize)(this.Image_Cute)).EndInit();
             this.ResumeLayout(false);
 

@@ -72,7 +72,7 @@ namespace ExcelToGoogleCalendar
                 {
                     Log($"缺少 Google 憑證", logWritter);
                 }
-                MessageBox.Show($"缺少 Google 憑證", "憑證錯誤", MessageBoxButtons.OK);
+                MessageBox.Show($"缺少 Google 憑證 (credentials.json)", "憑證錯誤", MessageBoxButtons.OK);
                 Environment.Exit(0);
             }
         }
@@ -217,7 +217,7 @@ namespace ExcelToGoogleCalendar
                         catch (Exception err)
                         {
                             LoadMessage.ForeColor = Color.Red;
-                            LoadMessage.Text = $"插你馬眼直接爆開";
+                            LoadMessage.Text = $"Google 同步錯誤";
                             using (StreamWriter logWritter = File.AppendText(logPath))
                             {
                                 Log($"Google 同步錯誤：\n{err.Message}", logWritter);
