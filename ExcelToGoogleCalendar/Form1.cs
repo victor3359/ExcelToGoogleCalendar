@@ -32,6 +32,8 @@ namespace ExcelToGoogleCalendar
         };
         private List<Doctor> doctors = new List<Doctor>();
 
+        private List<Event> LastActionList = new List<Event>();
+
         static string logPath = $"{DateTime.Now.Year}-{DateTime.Now.Month}-{DateTime.Now.Day} #執行紀錄{DateTime.Now.Hour}{DateTime.Now.Minute}{DateTime.Now.Second}.log";
 
         UserCredential credential;
@@ -72,6 +74,7 @@ namespace ExcelToGoogleCalendar
             {
                 try
                 {
+                    DB.Clear();
                     var filePath = LoadExcelDialog.FileName;
                     using (Stream str = LoadExcelDialog.OpenFile())
                     {
@@ -207,7 +210,6 @@ namespace ExcelToGoogleCalendar
                     try
                     {
                         service.Events.Insert(singleEvent, CalendarId).Execute();
-
                     }
                     catch (Exception)
                     {
@@ -228,6 +230,49 @@ namespace ExcelToGoogleCalendar
                 index++;
             }
             MessageBox.Show("同步 OK", "訊息", MessageBoxButtons.OK);
+        }
+
+        private void Recover_Lasttime_Click(object sender, EventArgs e)
+        {
+            var service = new CalendarService(new BaseClientService.Initializer()
+            {
+                HttpClientInitializer = credential,
+                ApplicationName = ApplicationName,
+            });
+            int index = 0;
+            foreach (var singleEvent in DB)
+            {
+                var doctor = doctors.Find(d => d.name == DoctorList[index]);
+                if (doctor == null)
+                {
+                    ModifyLoadMessage($"找不到 {DoctorList[index]} 老師的行事曆", Color.Red);
+                    using (StreamWriter logWritter = File.AppendText(logPath))
+                    {
+                        Log($"Google 復原錯誤：\n找不到 {DoctorList[index]} 老師的行事曆", logWritter);
+                    }
+                }
+                else
+                {
+                    CalendarId = doctor.calendarId;
+                    try
+                    {
+                        service.Events.Delete(CalendarId, singleEvent.Id).Execute();
+                    }
+                    catch (Exception err)
+                    {
+                        ModifyLoadMessage($"Google 復原錯誤", Color.Red);
+                        using (StreamWriter logWritter = File.AppendText(logPath))
+                        {
+                            Log($"Google 復原錯誤：\n{err.Message}", logWritter);
+                        }
+                    }
+                }
+                using (StreamWriter logWritter = File.AppendText(logPath))
+                {
+                    Log($"刪除事件 ID: {singleEvent.Id}", logWritter);
+                }
+            }
+            MessageBox.Show("復原 OK", "訊息", MessageBoxButtons.OK);
         }
 
         private void ModifyDoctor_Click(object sender, EventArgs e)

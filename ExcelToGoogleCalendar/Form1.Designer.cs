@@ -37,6 +37,7 @@ namespace ExcelToGoogleCalendar
             this.LoadExcelDialog = new System.Windows.Forms.OpenFileDialog();
             this.ModifyDoctor = new System.Windows.Forms.Button();
             this.Image_ShinAnBan = new System.Windows.Forms.PictureBox();
+            this.Recover_Lasttime = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Image_Cute)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Image_ShinAnBan)).BeginInit();
             this.SuspendLayout();
@@ -114,12 +115,24 @@ namespace ExcelToGoogleCalendar
             this.Image_ShinAnBan.TabStop = false;
             this.Image_ShinAnBan.WaitOnLoad = true;
             // 
+            // Recover_Lasttime
+            // 
+            this.Recover_Lasttime.Font = new System.Drawing.Font("Microsoft JhengHei UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Recover_Lasttime.Location = new System.Drawing.Point(197, 75);
+            this.Recover_Lasttime.Name = "Recover_Lasttime";
+            this.Recover_Lasttime.Size = new System.Drawing.Size(133, 40);
+            this.Recover_Lasttime.TabIndex = 9;
+            this.Recover_Lasttime.Text = "復原上次動作";
+            this.Recover_Lasttime.UseVisualStyleBackColor = true;
+            this.Recover_Lasttime.Click += new System.EventHandler(this.Recover_Lasttime_Click);
+            // 
             // ShinAnBan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(342, 452);
+            this.Controls.Add(this.Recover_Lasttime);
             this.Controls.Add(this.Image_ShinAnBan);
             this.Controls.Add(this.ModifyDoctor);
             this.Controls.Add(this.Image_Cute);
@@ -146,6 +159,7 @@ namespace ExcelToGoogleCalendar
         private System.Windows.Forms.OpenFileDialog LoadExcelDialog;
         private System.Windows.Forms.Button ModifyDoctor;
         private System.Windows.Forms.PictureBox Image_ShinAnBan;
+        private System.Windows.Forms.Button Recover_Lasttime;
     }
 }
 
