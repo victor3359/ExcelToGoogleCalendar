@@ -32,8 +32,6 @@ namespace ExcelToGoogleCalendar
         };
         private List<Doctor> doctors = new List<Doctor>();
 
-        private List<Event> LastActionList = new List<Event>();
-
         static string logPath = $"{DateTime.Now.Year}-{DateTime.Now.Month}-{DateTime.Now.Day} #執行紀錄{DateTime.Now.Hour}{DateTime.Now.Minute}{DateTime.Now.Second}.log";
 
         UserCredential credential;
@@ -56,6 +54,7 @@ namespace ExcelToGoogleCalendar
                         new FileDataStore(credPath, true)).Result;
                 }
                 SyncToGoogle.Enabled = false;
+                Recover_Lasttime.Enabled = false;
             }
             catch (Exception)
             {
@@ -75,6 +74,7 @@ namespace ExcelToGoogleCalendar
                 try
                 {
                     DB.Clear();
+                    DoctorList.Clear();
                     var filePath = LoadExcelDialog.FileName;
                     using (Stream str = LoadExcelDialog.OpenFile())
                     {
@@ -229,6 +229,8 @@ namespace ExcelToGoogleCalendar
                 }
                 index++;
             }
+            SyncToGoogle.Enabled = false;
+            Recover_Lasttime.Enabled = true;
             MessageBox.Show("同步 OK", "訊息", MessageBoxButtons.OK);
         }
 
@@ -272,6 +274,7 @@ namespace ExcelToGoogleCalendar
                     Log($"刪除事件 ID: {singleEvent.Id}", logWritter);
                 }
             }
+            Recover_Lasttime.Enabled = false;
             MessageBox.Show("復原 OK", "訊息", MessageBoxButtons.OK);
         }
 
