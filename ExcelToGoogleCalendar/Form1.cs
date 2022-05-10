@@ -130,6 +130,7 @@ namespace ExcelToGoogleCalendar
                             Log($"讀取 {filePath} 檔案 OK", logWritter);
                         }
                         SyncToGoogle.Enabled = true;
+                        Recover_Lasttime.Enabled = false;
                     }
                 }
                 catch (SecurityException ex)
